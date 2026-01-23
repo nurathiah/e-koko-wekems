@@ -16,10 +16,10 @@ export const INITIAL_UNITS: Unit[] = [
   { id: 's2', name: 'Ragbi', icon: '🏉', color: 'from-orange-500 to-orange-700', category: 'sukan' },
   { id: 's3', name: 'Badminton', icon: '🏸', color: 'from-teal-500 to-teal-700', category: 'sukan' },
   // Rumah Sukan
-  { id: 'rs1', name: 'Rumah Merah', icon: '🔴', color: 'from-red-600 to-red-800', category: 'rumah_sukan' },
-  { id: 'rs2', name: 'Rumah Biru', icon: '🔵', color: 'from-blue-600 to-blue-800', category: 'rumah_sukan' },
-  { id: 'rs3', name: 'Rumah Kuning', icon: '🟡', color: 'from-yellow-400 to-yellow-600', category: 'rumah_sukan' },
-  { id: 'rs4', name: 'Rumah Hijau', icon: '🟢', color: 'from-emerald-600 to-emerald-800', category: 'rumah_sukan' },
+  { id: 'rs1', name: 'Rumah Merah', icon: '🚩', color: 'from-red-600 to-red-800', category: 'rumah_sukan' },
+  { id: 'rs2', name: 'Rumah Biru', icon: '🚩', color: 'from-blue-600 to-blue-800', category: 'rumah_sukan' },
+  { id: 'rs3', name: 'Rumah Kuning', icon: '🚩', color: 'from-yellow-400 to-yellow-600', category: 'rumah_sukan' },
+  { id: 'rs4', name: 'Rumah Hijau', icon: '🚩', color: 'from-emerald-600 to-emerald-800', category: 'rumah_sukan' },
 ];
 
 export const GRADIENTS = [

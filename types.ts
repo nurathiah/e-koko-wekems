@@ -35,7 +35,6 @@ export interface SuccessStory {
   date: string;
 }
 
-// Committee member for specific units
 export interface UnitCommitteeMember {
   id: string;
   unitId: string;
@@ -45,7 +44,6 @@ export interface UnitCommitteeMember {
   className: string;
 }
 
-// Committee member for the main organization chart (Induk)
 export interface CommitteeMember {
   id: string;
   name: string;
@@ -54,16 +52,18 @@ export interface CommitteeMember {
   image: string | null;
 }
 
-// Global management data for the school
 export interface ManagementData {
   organizationChart: {
     committee: CommitteeMember[];
     image: string | null;
     lastUpdated: string;
   };
-  minutes: { id: string; title: string; date: string; file: string | null }[];
-  calendar: any[];
-  success: any[];
+  minutes: {
+    id: string;
+    title: string;
+    date: string;
+    file: string | null;
+  }[];
 }
 
 export interface TakwimItem {
@@ -98,7 +98,6 @@ export interface OPR {
   studentAttendance: number;
   teacherAttendance: number;
   images: (string | null)[];
-  // Added missing pikebm and sivik properties
   pikebm?: {
     objective: string;
     materials: string;
@@ -109,7 +108,7 @@ export interface OPR {
     theme: string;
     goal: string;
     activity: string;
-    suggestion: string;
+    suggestion?: string;
   };
 }
 
