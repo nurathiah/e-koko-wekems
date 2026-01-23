@@ -7,7 +7,7 @@ import {
 import { 
   Users, BookOpen, UserCheck, FileText, 
   Calendar, Trophy, X, Plus, Sparkles, AlertTriangle, Clock, CheckCircle2, Trash2, Edit3, Camera,
-  ArrowRight, StickyNote, Save, Shield, MapPin, UserX, AlertCircle, Info
+  ArrowRight, StickyNote, Save, Shield, MapPin, UserX, AlertCircle, Info, TrendingUp
 } from 'lucide-react';
 
 interface DashboardProps {
@@ -406,7 +406,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                          <span className="text-2xl font-black leading-none">{day}</span>
                       </div>
                       <div className="min-w-0 flex-1">
-                        <h4 className="text-sm font-black text-slate-800 uppercase truncate leading-none mb-2">{ev.title}</h4>
+                        <h4 className="text-sm font-black text-slate-800 uppercase truncate mb-2">{ev.title}</h4>
                         <div className="flex items-center gap-3">
                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5"><Clock size={12}/> {ev.time}</p>
                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5"><MapPin size={12}/> SEKOLAH</p>
@@ -465,7 +465,7 @@ const Dashboard: React.FC<DashboardProps> = ({
            {/* SECTION: NOTA PENTADBIRAN (Dinamik) */}
            <div className="bg-white p-10 rounded-[48px] border border-slate-200 shadow-sm">
               <div className="flex items-center justify-between mb-8">
-                 <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Nota Pentadbiran</h4>
+                 <h4 className="text-[10px] font-black uppercase tracking-widest text-black">Nota Pentadbiran</h4>
                  {isAdmin && (
                    <button 
                      onClick={() => { setTempNotes([...adminNotes]); setShowNotesForm(true); }}
@@ -480,7 +480,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                  {adminNotes.length > 0 ? adminNotes.map((note, i) => (
                    <div key={i} className="flex gap-4 group">
                       <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0 mt-1.5 group-hover:scale-150 transition-transform"></div>
-                      <p className="text-[11px] font-bold text-slate-600 leading-relaxed">{note}</p>
+                      <p className="text-[11px] font-black text-black leading-relaxed">{note}</p>
                    </div>
                  )) : (
                    <div className="text-center py-6 opacity-30">
