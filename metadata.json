@@ -1,0 +1,7 @@
+{
+  "name": "Copy of E-KOKO WEKEMS",
+  "description": "Sistem Pengurusan Kokurikulum SK Kemasek dengan integrasi AI untuk penjanaan laporan OPR dan pengurusan data pelajar/guru secara efisien.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
