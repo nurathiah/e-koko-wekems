@@ -170,6 +170,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        
         <div className="lg:col-span-8 space-y-10">
            {isAdmin && problematicAttendance.length > 0 && (
              <div className="bg-rose-50/50 p-8 md:p-10 rounded-[48px] border border-rose-200 shadow-sm overflow-hidden animate-in slide-in-from-top-10 duration-700">
@@ -284,6 +285,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         <div className="lg:col-span-4 space-y-10">
+           {/* SECTION: NOTA PENTADBIRAN - Font Black */}
            <div className="bg-white p-10 rounded-[48px] border border-slate-200 shadow-sm">
               <div className="flex items-center justify-between mb-8">
                  <h4 className="text-[10px] font-black uppercase tracking-widest text-black">Nota Pentadbiran</h4>
@@ -340,6 +342,7 @@ const Dashboard: React.FC<DashboardProps> = ({
               </div>
            </div>
         </div>
+
       </div>
 
       {/* MODAL NOTA PENTADBIRAN */}
@@ -363,7 +366,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                              newNotes[idx] = e.target.value;
                              setTempNotes(newNotes);
                            }}
-                           className="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:ring-2 focus:ring-indigo-500/20 leading-relaxed"
+                           className="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-black text-slate-700 outline-none focus:ring-2 focus:ring-indigo-500/20 leading-relaxed"
                            rows={2}
                         />
                         <button 
@@ -392,7 +395,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         </div>
       )}
       
-      {/* MODAL EVENT FORM (Simplified) */}
+      {/* MODAL EVENT FORM */}
       {showEventForm && (
         <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-[200] flex items-center justify-center p-4">
           <div className="bg-white rounded-[48px] w-full max-w-md overflow-hidden shadow-2xl">

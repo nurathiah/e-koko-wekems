@@ -43,10 +43,18 @@ const App: React.FC = () => {
       const savedStories = localStorage.getItem('wekem_success');
       const savedNotes = localStorage.getItem('wekem_admin_notes');
       const savedEvents = localStorage.getItem('wekem_global_events');
+      const savedOprs = localStorage.getItem('wekem_oprs');
+      const savedMeetings = localStorage.getItem('wekem_meetings');
       
-      // Merge initial units to ensure new categories like rumah_sukan exist
-      let currentUnits = savedUnits ? JSON.parse(savedUnits) : INITIAL_UNITS;
-      const initialUnitIds = INITIAL_UNITS.map(iu => iu.id);
+      const safeParse = (data: string | null, fallback: any) => {
+        try {
+          return data ? JSON.parse(data) : fallback;
+        } catch (e) {
+          return fallback;
+        }
+      };
+
+      let currentUnits = safeParse(savedUnits, INITIAL_UNITS);
       const existingIds = currentUnits.map((u: Unit) => u.id);
       
       INITIAL_UNITS.forEach(iu => {
@@ -56,54 +64,42 @@ const App: React.FC = () => {
       });
 
       setUnits(currentUnits);
-      setStudents(savedStudents ? JSON.parse(savedStudents) : []);
-      setTeachers(savedTeachers ? JSON.parse(savedTeachers) : []);
-      setSuccessStories(savedStories ? JSON.parse(savedStories) : [
+      setStudents(safeParse(savedStudents, []));
+      setTeachers(safeParse(savedTeachers, []));
+      setOprs(safeParse(savedOprs, []));
+      setMeetings(safeParse(savedMeetings, []));
+      setSuccessStories(safeParse(savedStories, [
         { id: 'ss1', title: 'Johan Kebangsaan Robotik 2026', category: 'MURID', date: '2026-02-10', image: null },
         { id: 'ss2', title: 'Anugerah Guru Inovatif Koko', category: 'GURU', date: '2026-03-05', image: null }
-      ]);
-      setAdminNotes(savedNotes ? JSON.parse(savedNotes) : [
+      ]));
+      setAdminNotes(safeParse(savedNotes, [
         "Sila pastikan OPR diisi sebelum Jumaat jam 12:00 tengah hari.",
         "Analisa kehadiran bulanan akan dijana secara automatik pada minggu ke-4.",
         "Semak senarai jawatankuasa untuk kemaskini perlantikan baru."
-      ]);
-      setGlobalEvents(savedEvents ? JSON.parse(savedEvents) : [
+      ]));
+      setGlobalEvents(safeParse(savedEvents, [
         { id: 'e1', title: 'Merentas Desa Sekolah', date: '2026-03-22', time: '07:30', image: null },
         { id: 'e2', title: 'Mesyuarat Agung Koko', date: '2026-03-25', time: '14:00', image: null }
-      ]);
+      ]));
       
       setAchievements([
         { id: 'a1', unitName: 'Pengakap', award: 'Johan Kawad Kaki Negeri', rank: '🥇', image: null, date: '2026-02-15' },
         { id: 'a2', unitName: 'Bola Sepak', award: 'Naib Johan MSSD', rank: '🥈', image: null, date: '2026-03-01' }
       ]);
     } catch (e) {
+      console.error("Initialization Error:", e);
       setUnits(INITIAL_UNITS);
     }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('wekem_units', JSON.stringify(units));
-  }, [units]);
-
-  useEffect(() => {
-    localStorage.setItem('wekem_students', JSON.stringify(students));
-  }, [students]);
-
-  useEffect(() => {
-    localStorage.setItem('wekem_teachers', JSON.stringify(teachers));
-  }, [teachers]);
-
-  useEffect(() => {
-    localStorage.setItem('wekem_success', JSON.stringify(successStories));
-  }, [successStories]);
-
-  useEffect(() => {
-    localStorage.setItem('wekem_admin_notes', JSON.stringify(adminNotes));
-  }, [adminNotes]);
-
-  useEffect(() => {
-    localStorage.setItem('wekem_global_events', JSON.stringify(globalEvents));
-  }, [globalEvents]);
+  useEffect(() => { localStorage.setItem('wekem_units', JSON.stringify(units)); }, [units]);
+  useEffect(() => { localStorage.setItem('wekem_students', JSON.stringify(students)); }, [students]);
+  useEffect(() => { localStorage.setItem('wekem_teachers', JSON.stringify(teachers)); }, [teachers]);
+  useEffect(() => { localStorage.setItem('wekem_success', JSON.stringify(successStories)); }, [successStories]);
+  useEffect(() => { localStorage.setItem('wekem_admin_notes', JSON.stringify(adminNotes)); }, [adminNotes]);
+  useEffect(() => { localStorage.setItem('wekem_global_events', JSON.stringify(globalEvents)); }, [globalEvents]);
+  useEffect(() => { localStorage.setItem('wekem_oprs', JSON.stringify(oprs)); }, [oprs]);
+  useEffect(() => { localStorage.setItem('wekem_meetings', JSON.stringify(meetings)); }, [meetings]);
 
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Layout },
@@ -150,22 +146,16 @@ const App: React.FC = () => {
       </div>
 
       <header className="gradient-bg text-white px-4 md:px-10 py-2 md:py-3 flex items-center justify-between shadow-xl shrink-0 border-b border-white/10 relative z-20">
-        <div className="w-14 h-14 md:w-24 md:h-24 p-0 transform hover:scale-105 transition-transform shrink-0 flex items-center justify-center">
+        <div className="w-14 h-14 md:w-24 md:h-24 transform hover:scale-105 transition-transform shrink-0 flex items-center justify-center">
           <img src={LOGO_SEKOLAH} alt="Lencana Sekolah" className="w-full h-full object-contain filter drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]" />
         </div>
-        
         <div className="flex-1 text-center px-4">
-          <h1 className="text-xl md:text-4xl lg:text-5xl font-black tracking-tight leading-none text-white uppercase drop-shadow-lg">
-            E-KOKO WEKEMS
-          </h1>
+          <h1 className="text-xl md:text-4xl lg:text-5xl font-black tracking-tight leading-none text-white uppercase drop-shadow-lg">E-KOKO WEKEMS</h1>
           <div className="mt-0.5 md:mt-1.5 flex flex-col items-center">
-            <p className="text-[7px] md:text-[12px] lg:text-[14px] font-black uppercase tracking-[0.25em] text-indigo-300 drop-shadow">
-              Digital Management • UNIT KOKURIKULUM SK KEMASEK
-            </p>
+            <p className="text-[7px] md:text-[12px] lg:text-[14px] font-black uppercase tracking-[0.25em] text-indigo-300 drop-shadow">Digital Management • UNIT KOKURIKULUM SK KEMASEK</p>
           </div>
         </div>
-
-        <div className="w-14 h-14 md:w-24 md:h-24 p-0 transform hover:scale-105 transition-transform shrink-0 flex items-center justify-center">
+        <div className="w-14 h-14 md:w-24 md:h-24 transform hover:scale-105 transition-transform shrink-0 flex items-center justify-center">
           <img src={LOGO_KHAS} alt="Logo Unit Kokurikulum" className="w-full h-full object-contain filter drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]" />
         </div>
       </header>
@@ -211,6 +201,12 @@ const App: React.FC = () => {
         </div>
       </main>
 
+      <footer className="bg-slate-950 text-white py-2 md:py-3 shrink-0 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <p className="text-[7px] md:text-[8px] font-bold uppercase tracking-widest text-slate-500">© 2026 E-KOKO WEKEMS Digital System • Unit Kokurikulum SK Kemasek</p>
+        </div>
+      </footer>
+
       {showUnifiedReg && (
         <UnifiedRegistrationModal 
           units={units} 
@@ -218,12 +214,6 @@ const App: React.FC = () => {
           onRegister={handleUnifiedRegister}
         />
       )}
-
-      <footer className="bg-slate-950 text-white py-2 md:py-3 shrink-0 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-[7px] md:text-[8px] font-bold uppercase tracking-widest text-slate-500">© 2026 E-KOKO WEKEMS Digital System • Unit Kokurikulum SK Kemasek</p>
-        </div>
-      </footer>
     </div>
   );
 };

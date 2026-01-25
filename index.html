@@ -7,6 +7,10 @@
   <title>E-KOKO WEKEMS - Unit Kokurikulum SK Kemasek</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    // Polyfill kritikal untuk mengelakkan aplikasi crash di browser
+    window.process = window.process || { env: { API_KEY: "" } };
+  </script>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -21,7 +25,6 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-    /* Gaya Watermark 25% Opacity */
     .watermark-bg {
       position: relative;
     }
@@ -41,31 +44,31 @@
       z-index: -1;
     }
   </style>
-<script>
-  // Polyfill untuk process.env supaya tidak crash di browser/Vercel
-  window.process = {
-    env: {
-      API_KEY: "" // Vercel akan menyuntik ini jika ditetapkan di Dashboard Vercel
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@^19.2.3",
+      "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+      "react/": "https://esm.sh/react@^19.2.3/",
+      "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+      "jspdf": "https://esm.sh/jspdf@^2.5.1",
+      "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+      "recharts": "https://esm.sh/recharts@^3.6.0",
+      "xlsx": "https://esm.sh/xlsx@^0.18.5"
     }
-  };
-</script>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "jspdf": "https://esm.sh/jspdf@^2.5.1",
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
-    "recharts": "https://esm.sh/recharts@^3.6.0",
-    "xlsx": "https://esm.sh/xlsx@^0.18.5"
   }
-}
-</script>
+  </script>
 </head>
 <body class="bg-gray-50 h-screen overflow-hidden watermark-bg">
-  <div id="root"></div>
+  <div id="root">
+    <!-- Loading State jika JS lambat dimuatkan -->
+    <div class="h-screen flex items-center justify-center bg-white/50 backdrop-blur-sm">
+      <div class="text-center">
+        <div class="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p class="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-900">Memuatkan Sistem WEKEMS...</p>
+      </div>
+    </div>
+  </div>
   <script type="module" src="./index.tsx"></script>
 </body>
 </html>
