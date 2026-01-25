@@ -41,6 +41,14 @@
       z-index: -1;
     }
   </style>
+<script>
+  // Polyfill untuk process.env supaya tidak crash di browser/Vercel
+  window.process = {
+    env: {
+      API_KEY: "" // Vercel akan menyuntik ini jika ditetapkan di Dashboard Vercel
+    }
+  };
+</script>
 <script type="importmap">
 {
   "imports": {
