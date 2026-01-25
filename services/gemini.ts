@@ -1,12 +1,9 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-// Jangan define const ai di luar jika process.env.API_KEY belum sedia
-// Namun mengikut garis panduan, kita definisikan satu kali menggunakan process.env.API_KEY
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "" });
-
+// Fixed: Use process.env.API_KEY directly as per guidelines and avoid window.process which doesn't exist on Window type.
 export async function generateOPRContent(unitName: string, title: string) {
-  if (!process.env.API_KEY) return null;
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   try {
     const response = await ai.models.generateContent({
@@ -29,15 +26,19 @@ export async function generateOPRContent(unitName: string, title: string) {
         },
       },
     });
-    return JSON.parse(response.text.trim());
+    
+    // Fixed: Get text output via the .text property.
+    const result = response.text;
+    return result ? JSON.parse(result.trim()) : null;
   } catch (e) {
     console.error("Gemini OPR Error:", e);
     return null;
   }
 }
 
+// Fixed: Use process.env.API_KEY directly as per guidelines and avoid window.process.
 export async function generatePikebmContent(activityName: string) {
-  if (!process.env.API_KEY) return null;
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   try {
     const response = await ai.models.generateContent({
@@ -60,15 +61,18 @@ export async function generatePikebmContent(activityName: string) {
         }
       }
     });
-    return JSON.parse(response.text.trim());
+    // Fixed: Get text output via the .text property.
+    const result = response.text;
+    return result ? JSON.parse(result.trim()) : null;
   } catch (e) {
     console.error("Gemini PIKEBM Error:", e);
     return null;
   }
 }
 
+// Fixed: Use process.env.API_KEY directly as per guidelines and avoid window.process.
 export async function generateSivikContent(theme: string) {
-  if (!process.env.API_KEY) return null;
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   try {
     const response = await ai.models.generateContent({
@@ -89,7 +93,9 @@ export async function generateSivikContent(theme: string) {
         }
       }
     });
-    return JSON.parse(response.text.trim());
+    // Fixed: Get text output via the .text property.
+    const result = response.text;
+    return result ? JSON.parse(result.trim()) : null;
   } catch (e) {
     console.error("Gemini Sivik Error:", e);
     return null;

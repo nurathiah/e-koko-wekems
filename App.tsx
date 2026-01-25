@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import { INITIAL_UNITS } from './constants';
-import { Category, Unit, Student, Teacher, OPR, MeetingMetadata, UnitCommitteeMember, TakwimItem, Achievement, GlobalEvent, SuccessStory } from './types';
-import Dashboard from './components/Dashboard';
-import UnitGrid from './components/UnitGrid';
-import UnifiedRegistrationModal from './components/UnifiedRegistrationModal';
+import { INITIAL_UNITS } from './constants.ts';
+import { Category, Unit, Student, Teacher, OPR, MeetingMetadata, UnitCommitteeMember, TakwimItem, Achievement, GlobalEvent, SuccessStory } from './types.ts';
+import Dashboard from './components/Dashboard.tsx';
+import UnitGrid from './components/UnitGrid.tsx';
+import UnifiedRegistrationModal from './components/UnifiedRegistrationModal.tsx';
 import { Layout, Users, GraduationCap, Trophy, Shield, User, Flag, UserPlus } from 'lucide-react';
 
 const LOGO_SEKOLAH = "https://lh3.googleusercontent.com/d/1QqXwWjeWrr9AEBcde589tUam8EnyGfBD";

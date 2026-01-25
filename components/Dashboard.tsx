@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo } from 'react';
-import { Unit, Student, Teacher, OPR, SuccessStory, GlobalEvent } from '../types';
+import { Unit, Student, Teacher, OPR, SuccessStory, GlobalEvent } from '../types.ts';
 import { 
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip, 
 } from 'recharts';
@@ -285,10 +285,10 @@ const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         <div className="lg:col-span-4 space-y-10">
-           {/* SECTION: NOTA PENTADBIRAN - Font Black */}
+           {/* SECTION: NOTA PENTADBIRAN - Font Black dan Hitam Pekat */}
            <div className="bg-white p-10 rounded-[48px] border border-slate-200 shadow-sm">
               <div className="flex items-center justify-between mb-8">
-                 <h4 className="text-[10px] font-black uppercase tracking-widest text-black">Nota Pentadbiran</h4>
+                 <h4 className="text-[12px] font-black uppercase tracking-widest text-black">Nota Pentadbiran</h4>
                  {isAdmin && (
                    <button onClick={() => { setTempNotes([...adminNotes]); setShowNotesForm(true); }} className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
                      <Edit3 size={14} />
@@ -298,11 +298,11 @@ const Dashboard: React.FC<DashboardProps> = ({
               <div className="space-y-6">
                  {adminNotes.length > 0 ? adminNotes.map((note, i) => (
                    <div key={i} className="flex gap-4 group">
-                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0 mt-1.5"></div>
-                      <p className="text-[11px] font-black text-black leading-relaxed">{note}</p>
+                      <div className="w-2 h-2 rounded-full bg-black shrink-0 mt-1.5"></div>
+                      <p className="text-[13px] font-black text-black leading-relaxed">{note}</p>
                    </div>
                  )) : (
-                   <p className="text-[8px] font-black uppercase tracking-widest text-slate-300 text-center">Tiada nota</p>
+                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-300 text-center">Tiada nota</p>
                  )}
               </div>
            </div>
