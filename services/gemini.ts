@@ -1,9 +1,22 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-// Fixed: Use process.env.API_KEY directly as per guidelines and avoid window.process which doesn't exist on Window type.
+/**
+ * Memulakan client GoogleGenAI dengan selamat menggunakan process.env.API_KEY.
+ * Mengelakkan ralat ReferenceError: process is not defined.
+ */
+function getAIClient() {
+  const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : '';
+  if (!apiKey) {
+    console.warn("API Key Gemini tidak dijumpai. Ciri AI akan dilumpuhkan.");
+    return null;
+  }
+  return new GoogleGenAI({ apiKey });
+}
+
 export async function generateOPRContent(unitName: string, title: string) {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = getAIClient();
+  if (!ai) return null;
 
   try {
     const response = await ai.models.generateContent({
@@ -27,7 +40,6 @@ export async function generateOPRContent(unitName: string, title: string) {
       },
     });
     
-    // Fixed: Get text output via the .text property.
     const result = response.text;
     return result ? JSON.parse(result.trim()) : null;
   } catch (e) {
@@ -36,9 +48,9 @@ export async function generateOPRContent(unitName: string, title: string) {
   }
 }
 
-// Fixed: Use process.env.API_KEY directly as per guidelines and avoid window.process.
 export async function generatePikebmContent(activityName: string) {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = getAIClient();
+  if (!ai) return null;
   
   try {
     const response = await ai.models.generateContent({
@@ -61,7 +73,6 @@ export async function generatePikebmContent(activityName: string) {
         }
       }
     });
-    // Fixed: Get text output via the .text property.
     const result = response.text;
     return result ? JSON.parse(result.trim()) : null;
   } catch (e) {
@@ -70,9 +81,9 @@ export async function generatePikebmContent(activityName: string) {
   }
 }
 
-// Fixed: Use process.env.API_KEY directly as per guidelines and avoid window.process.
 export async function generateSivikContent(theme: string) {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = getAIClient();
+  if (!ai) return null;
 
   try {
     const response = await ai.models.generateContent({
@@ -93,7 +104,6 @@ export async function generateSivikContent(theme: string) {
         }
       }
     });
-    // Fixed: Get text output via the .text property.
     const result = response.text;
     return result ? JSON.parse(result.trim()) : null;
   } catch (e) {
